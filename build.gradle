@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.0.6'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'br.com.api'
+version = '0.0.1-SNAPSHOT'
+description = 'alura'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Ler arquivo .env e definir variáveis de ambiente
+tasks.withType(JavaExec) {
+    doFirst {
+        def envFile = file('.env')
+        if (envFile.exists()) {
+            envFile.eachLine { line ->
+                if (!line.startsWith('#') && line.contains('=')) {
+                    def (key, value) = line.split('=', 2)
+                    environment key.trim(), value.trim()
+                }
+            }
+        }
+    }
+}
+
+// BootRun também precisa das variáveis
+bootRun {
+    doFirst {
+        def envFile = file('.env')
+        if (envFile.exists()) {
+            envFile.eachLine { line ->
+                if (!line.startsWith('#') && line.contains('=')) {
+                    def (key, value) = line.split('=', 2)
+                    environment key.trim(), value.trim()
+                }
+            }
+        }
+    }
+}
