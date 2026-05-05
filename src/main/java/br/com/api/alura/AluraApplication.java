@@ -19,7 +19,7 @@ public class AluraApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         var consumoAPI = new ConsumoAPI();
-        var json = consumoAPI.obterDados("http://www.omdbapi.com/?apikey=" + apiKey + "&t=Breaking+Bad&Season=1");
+        var json = consumoAPI.obterDados("https://www.omdbapi.com/?apikey=" + apiKey + "&t=Breaking+Bad&Season=1");
         System.out.println(json);
     }
 }
