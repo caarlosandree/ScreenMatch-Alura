@@ -3,6 +3,7 @@ AGENTS.md
 agents/
 .agents/
 .windsurf/
+.github/
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
